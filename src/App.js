@@ -1,40 +1,27 @@
-import { useState, useEffect, useLayoutEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef} from 'react';
 
-function App() {
-  const [toggle, setToggle] = useState(false);
-  const textRef = useRef();
+function App(){
+  const ele = useRef();
 
-  // it happens after printing DOM
-  // useEffect(() => {
-  //   if (textRef.current != null) {
-  //     const dimension = textRef.current.getBoundingClientRect();
-  //     textRef.current.style.paddingTop = `${dimension.height}px`;
-  //   }
-  // }, [toggle]);
+// pahle useLayoutEffect call hota hai uske baad useEffect call hota hai
 
-  // it happens before printing DOM
-  useLayoutEffect(() => {
-    if (textRef.current != null) {
-      const dimension = textRef.current.getBoundingClientRect();
-      textRef.current.style.paddingTop = `${dimension.height}px`;
-    }
-  }, [toggle]);
-
-  // Example to show that useLayoutEffect hook will run first
   // useEffect(()=>{
   //   console.log("useEffect called");
-  // }, [toggle])
+  //   const dimension = ele.current.getBoundingClientRect();
+  //   ele.current.style.paddingTop = `${dimension.height}px`;
+  // },[])
 
-  // useLayoutEffect(()=>{
-  //   console.log("useLayoutEffect called");
-  // }, [toggle]);
-
-  return (
+  useLayoutEffect(()=>{
+    console.log("useLayoutEffect called");
+    const dimension = ele.current.getBoundingClientRect();
+    ele.current.style.paddingTop = `${dimension.height}px`;
+  },[])
+  return(
     <>
-      <button onClick={() => setToggle(!toggle)}>Toggle</button>
-      {toggle && <h1 ref={textRef}>Hello World</h1>}
+    <h1>Hello Parent component</h1>
+    <p ref={ele}>isme padding dena hai</p>
     </>
-  );
+  )
 }
 
 export default App;
