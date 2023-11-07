@@ -1,27 +1,26 @@
-import { useEffect, useLayoutEffect, useRef} from 'react';
+import { useRef, useEffect} from 'react';
 
 function App(){
-  const ele = useRef();
+  const ref = useRef(0);
 
-// pahle useLayoutEffect call hota hai uske baad useEffect call hota hai
 
-  // useEffect(()=>{
-  //   console.log("useEffect called");
-  //   const dimension = ele.current.getBoundingClientRect();
-  //   ele.current.style.paddingTop = `${dimension.height}px`;
-  // },[])
+  // by clicking button ref value is changing but useEffect hook is not calling
+  useEffect(()=>{
+    console.log("useEffect called");
+  })
 
-  useLayoutEffect(()=>{
-    console.log("useLayoutEffect called");
-    const dimension = ele.current.getBoundingClientRect();
-    ele.current.style.paddingTop = `${dimension.height}px`;
-  },[])
-  return(
+  function handleClick(){
+    ref.current = ref.current + 1;
+    console.log(ref.current);
+  }
+
+  return (
     <>
-    <h1>Hello Parent component</h1>
-    <p ref={ele}>isme padding dena hai</p>
+    <h1>Hello parent component</h1>
+    <button onClick={handleClick}>click me</button>
     </>
   )
 }
 
 export default App;
+
