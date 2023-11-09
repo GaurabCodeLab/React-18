@@ -1,27 +1,28 @@
-import './App.css';
 import { useState } from 'react';
 
-function App() {
-  const [number, setNumber] = useState(0);
-  const [dark, setDark] = useState(false);
-  const calculation = expensiveFunction(number);
-  const cssStyle = {
-    backgroundColor : dark? "black": "white",
-    color : dark? "white" : "black"
-  };
-  return(
-    <div style={cssStyle}>
-      <input type='number' value={number} onChange={(event)=>setNumber(event.target.valueAsNumber)}/>
-      <h2>Calculation : {calculation}</h2>
-      <button onClick={()=>setDark(!dark)}>Toggle</button>
-    </div>
-  )
+
+//without usememo hook
+function changeNumber(num){
+   for(let i=0; i<100000; i++){};
+   console.log("expensive function called");
+   return num;
 }
 
-function expensiveFunction(num){
-   console.log("loop started");
-   for(let i=0; i<100000000; i++){}
-   return num;
+function App(){
+  const [dark, setDark] = useState(false);
+  const [number, setNumber] = useState(0);
+  const expensiveNumber = changeNumber(number);
+  const customCss = {
+    backgroundColor : dark?"black":"white ",
+    color : dark?"white":"black"
+  }
+  return (
+    <>
+    <h1 style={customCss}>Number value is : {expensiveNumber}</h1>
+    <button onClick={()=>setNumber(number+1)}>Increase Number</button> <br/> <br/>
+    <button onClick={()=>setDark(!dark)}>Toggle Me !!!</button>
+    </>
+  )
 }
 
 export default App;
