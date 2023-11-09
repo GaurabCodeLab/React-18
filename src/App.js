@@ -1,27 +1,24 @@
-import './App.css';
-import { useState} from 'react';
-import PrintTable from './PrintTable';
+import { useState } from 'react';
+import PrintNumber from './printNumber';
 
-function App() {
-  const [number, setNumber] = useState(0);
+function App(){
   const [dark, setDark] = useState(false);
+  const [number, setNumber] = useState(0);
+  const customCss = {
+    backgroundColor : dark?"black":"white ",
+    color : dark?"white":"black"
+  }
+  function changeNumber(){
+    return number;
+  }
   
-  const cssStyle = {
-    backgroundColor : dark? "black": "white",
-    color : dark? "white" : "black"
-  };
-
-  // IN real world below function can be anything like calling API
-  const calculateTable = ()=>{
-    return [number*1, number*2, number*3, number*4, number*5];
-  };
-
-  return(
-    <div style={cssStyle}>
-      <input type='number' value={number} onChange={(event)=>setNumber(event.target.valueAsNumber)}/>
-      <PrintTable calculateTable={calculateTable} />
-      <button onClick={()=>setDark(!dark)}>Toggle</button>
-    </div>
+  return (
+    <>
+    <h1 style={customCss}>Number value is : {number}</h1>
+    <button onClick={()=>setNumber(number+1)}>Increase Number</button> <br/> <br/>
+    <button onClick={()=>setDark(!dark)}>Toggle Me !!!</button>
+    <PrintNumber changeNumber={changeNumber}/>
+    </>
   )
 }
 
