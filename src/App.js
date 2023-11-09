@@ -1,32 +1,25 @@
-import './App.css';
-import { useState, useCallback} from 'react';
-import PrintTable from './PrintTable';
+import { useState, useCallback } from 'react';
+import PrintNumber from './printNumber';
 
-function App() {
-  const [number, setNumber] = useState(0);
+function App(){
   const [dark, setDark] = useState(false);
-
-  // second way to use useCallback hook
-  const calculateTable = useCallback((value)=>{
-    const newNumber = number + value;
-    return [newNumber*1, newNumber*2, newNumber*3, newNumber*4]
+  const [number, setNumber] = useState(0);
+  const changeNumber = useCallback(()=>{
+    return number
   }, [number])
-    // First way to use useCallback hook
-  // const calculateTable = useCallback(()=>{
-  //   return [number*1, number*2, number*3, number*4, number*5];
-  // }, [number])
+  const customCss = {
+    backgroundColor : dark?"black":"white ",
+    color : dark?"white":"black"
+  }
+ 
   
-  const cssStyle = {
-    backgroundColor : dark? "black": "white",
-    color : dark? "white" : "black"
-  };
-
-  return(
-    <div style={cssStyle}>
-      <input type='number' value={number} onChange={(event)=>setNumber(event.target.valueAsNumber)}/>
-      <PrintTable calculateTable={calculateTable} />
-      <button onClick={()=>setDark(!dark)}>Toggle</button>
-    </div>
+  return (
+    <>
+    <h1 style={customCss}>Number value is : {number}</h1>
+    <button onClick={()=>setNumber(number+1)}>Increase Number</button> <br/> <br/>
+    <button onClick={()=>setDark(!dark)}>Toggle Me !!!</button>
+    <PrintNumber changeNumber={changeNumber}/>
+    </>
   )
 }
 
