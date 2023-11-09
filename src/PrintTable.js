@@ -1,17 +1,16 @@
-import {useState, useEffect} from 'react';
+import { useEffect, useState} from 'react';
 
-function PrintTable({calculateTable}){
-    const [rows, setRows] = useState([]);
-
+function PrintNumber({changeNumber}){
+    const [num, setNum] = useState(null);
     useEffect(()=>{
-        console.log("Print Table Runs !");
-        setRows(calculateTable(5));
-    }, [calculateTable]);
-
-    return rows.map((row, index)=>{
-        return <p key={index}>{row}</p>
-    })
-
+      setNum(changeNumber());
+        console.log("function created");
+    }, [changeNumber])
+    return (
+        <>
+        <h1>Hello child component {num}</h1>
+        </>
+    )
 }
 
-export default PrintTable;
+export default PrintNumber;
