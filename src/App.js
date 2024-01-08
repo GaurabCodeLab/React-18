@@ -1,4 +1,4 @@
-import Child from "./printNumber";
+import Child from "./Child";
 import { useState, createContext } from "react";
 
 export const dataContext = createContext();
