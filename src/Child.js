@@ -3,7 +3,7 @@ function Child(props){
     
     function handleClick(){
         const func = props.data;
-        func("lakshman");
+        func(value);
     }
      
     return(
